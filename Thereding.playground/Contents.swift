@@ -8,7 +8,12 @@ let serialQueue = DispatchQueue(label: "com.queue.Serial")
 
 func doSyncTaskInSerialQueue() {
         for i in 1...3 {
-            serialQueue.async {
+            
+            // MARK: if we used sync then the execution will happen inside the main thread
+            /// It`s  not true that alwase the execution will happen in main thread
+            /// it only happen when any custom thread block the execution of main thread
+            /// if any other thread block the execution of main thread  then the all execution intelegently happen in main thread itself :)  
+            serialQueue.sync {
             if Thread.isMainThread{
                 print("task running in main thread")
             }else{
@@ -25,8 +30,9 @@ doSyncTaskInSerialQueue()
 
 serialQueue.async {
     for i in 0...3 {
-        value = i
-        print("\(value) ✴️")
+//        value = i // for real code
+//        print("\(value) ✴️") // for real code
+        print("\(i) ✴️") // for playground test
     }
 }
 
