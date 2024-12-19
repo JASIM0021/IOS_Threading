@@ -2,18 +2,11 @@ import UIKit
 
 var greeting = "Hello, playground"
 
-
-class CustomThered {
+DispatchQueue.main.async {
     
-    func createThread(){
-        let thered:Thread = Thread(target: self, selector: #selector(theredSelector), object: nil)
-        thered.start()
-    }
-    @objc func theredSelector(){
-        print("Custom Thread in Action ")
-    }
+    print(Thread.isMainThread ? "Execution on Main thread" : "Execution on Other Thread")
 }
 
-let customThread  = CustomThered()
-
-customThread.createThread()
+DispatchQueue.global().async {
+    print(Thread.isMainThread ? "Execution on Main thread" : "Execution on Other Thread global thread")
+}
